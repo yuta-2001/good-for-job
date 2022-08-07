@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\CompaniesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.welcome');
-});
+
+Route::resource('companies', CompaniesController::class)
+->middleware('auth:admin')
+->except(['edit', 'update']);
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
@@ -31,10 +33,6 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('guest')->group(function () {
-	Route::get('register', [RegisteredUserController::class, 'create'])
-							->name('register');
-
-	Route::post('register', [RegisteredUserController::class, 'store']);
 
 	Route::get('login', [AuthenticatedSessionController::class, 'create'])
 							->name('login');

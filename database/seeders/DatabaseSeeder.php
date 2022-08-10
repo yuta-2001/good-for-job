@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CompanySeeder::class,
             FeatureSeeder::class,
+            IndustorySeeder::class,
         ]);
     }
 }

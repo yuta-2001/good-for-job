@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\FeaturesController;
+use App\Http\Controllers\Admin\IndustoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,10 @@ Route::resource('companies', CompaniesController::class)
 ->except(['edit', 'update']);
 
 Route::resource('features', FeaturesController::class)
+->middleware('auth:admin')
+->except(['show']);
+
+Route::resource('industories', IndustoriesController::class)
 ->middleware('auth:admin')
 ->except(['show']);
 

@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             FeatureSeeder::class,
             IndustorySeeder::class,
             OccupationSeeder::class,
+            PrefectureSeeder::class,
+            CitySeeder::class,
         ]);
     }
 }

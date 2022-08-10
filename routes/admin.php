@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\FeaturesController;
 use App\Http\Controllers\Admin\IndustoriesController;
+use App\Http\Controllers\Admin\OccupationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,10 @@ Route::resource('features', FeaturesController::class)
 ->except(['show']);
 
 Route::resource('industories', IndustoriesController::class)
+->middleware('auth:admin')
+->except(['show']);
+
+Route::resource('occupations', OccupationsController::class)
 ->middleware('auth:admin')
 ->except(['show']);
 

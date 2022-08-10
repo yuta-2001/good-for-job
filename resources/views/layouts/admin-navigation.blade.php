@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('admin.industories.index')" :active="request()->routeIs('admin.industories.index')">
                         業界一覧
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.occupations.index')" :active="request()->routeIs('admin.occupations.index')">
+                        職種一覧
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -83,6 +86,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.industories.index')" :active="request()->routeIs('admin.industories.index')">
                 業界一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.occupations.index')" :active="request()->routeIs('admin.occupations.index')">
+                職種一覧
             </x-responsive-nav-link>
         </div>
 

@@ -54,12 +54,12 @@
                                                 <td class="px-3 py-3">0</td>
                                                 <td class="px-3 py-3 text-lg text-gray-900">{{ $company->created_at }}
                                                 </td>
-                                                <td class="w-40">
-                                                    <button class="mx-auto mt-2 mb-2 text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded text-lg">詳細</button>
+                                                <td class="w-40 flex items-center p-4 pl-0">
+                                                    <button class="text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded text-lg mr-2">詳細</button>
                                                     <form id="delete_{{ $company->id }}" method="POST" action="{{ route('admin.companies.destroy', ['company' => $company->id]) }}">
                                                         @csrf
                                                         @method('delete')
-                                                        <a href="#" onclick="deletePost(this)" data-id="{{ $company->id }}" class="mb-2 inline-block mx-auto text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded text-lg">削除</a>
+                                                        <a href="#" onclick="deletePost(this)" data-id="{{ $company->id }}" class="inline-block text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded text-lg">削除</a>
                                                     </form>
                                                 </td>
                                             </tr>

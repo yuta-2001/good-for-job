@@ -18,4 +18,8 @@ class City extends Model
     public function prefecture() {
         return $this->belongsTo(Prefecture::class);
     }
+
+    public function companies() {
+        return $this->hasMany(Company::class);
+    }
 }

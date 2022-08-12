@@ -20,6 +20,13 @@ class Company extends Authenticatable
         'name',
         'email',
         'password',
+        'industory_id',
+        'prefecture_id',
+        'city_id',
+        'address',
+        'president',
+        'count_of_employee',
+        'img',
     ];
 
     /**
@@ -40,4 +47,16 @@ class Company extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function industory() {
+        return $this->belongsTo(Industory::class);
+    }
+
+    public function prefecture() {
+        return $this->belongsTo(Prefecture::class);
+    }
+
+    public function city() {
+        return $this->belongsTo(City::class);
+    }
 }

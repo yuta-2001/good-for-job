@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AjaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth:users'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+//都道府県選択時の非同期処理
+Route::post('/fetch/address', [AjaxController::class, 'city']);

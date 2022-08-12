@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\Prefecture;
+use App\Models\Industory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
+use InterventionImage;
 
 
 class CompaniesController extends Controller
@@ -36,7 +40,10 @@ class CompaniesController extends Controller
     public function create()
     {
         //
-        return view('admin.companies.create');
+        $prefectures = Prefecture::all();
+        $industories = Industory::all();
+
+        return view('admin.companies.create', compact('prefectures', 'industories'));
     }
 
     /**
@@ -52,12 +59,38 @@ class CompaniesController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:companies'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'industory_id' => ['required'],
+            'prefecture_id' => ['required'],
+            'city_id' => ['required'],
+            'address' => ['required'],
+            'president' => ['required'],
+            'count_of_employee' => ['required'],
+            'img' => ['required'],
         ]);
 
+        /**
+         * 画像保存関連処理
+         */
+        $imageFile = $request->img;
+        $resizedImage = InterventionImage::make($imageFile)->resize(1920,1080)->encode();
+        $fileName = uniqid(rand().'_');
+        $extension = $imageFile->extension();
+        $fileNameToStore = $fileName. '.' .$extension;
+
+        Storage::put('public/' . $fileNameToStore, $resizedImage);
+
+        
         Company::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'industory_id' => $request->industory_id,
+            'prefecture_id' => $request->prefecture_id,
+            'city_id' => $request->city_id,
+            'address' => $request->address,
+            'president' => $request->president,
+            'count_of_employee' => $request->count_of_employee,
+            'img' => $fileNameToStore,
         ]);
 
         return redirect()->route('admin.companies.index')
@@ -76,6 +109,9 @@ class CompaniesController extends Controller
     public function show($id)
     {
         //
+        $company = Company::findOrFail($id);
+
+        return view('admin.companies.show', compact('company'));
     }
 
     /**

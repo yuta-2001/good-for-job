@@ -78,7 +78,6 @@ class CompaniesController extends Controller
         $fileNameToStore = $fileName. '.' .$extension;
 
         Storage::put('public/' . $fileNameToStore, $resizedImage);
-
         
         Company::create([
             'name' => $request->name,

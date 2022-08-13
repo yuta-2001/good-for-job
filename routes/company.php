@@ -6,8 +6,8 @@ use App\Http\Controllers\Company\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Company\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Company\Auth\NewPasswordController;
 use App\Http\Controllers\Company\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Company\Auth\RegisteredUserController;
 use App\Http\Controllers\Company\Auth\VerifyEmailController;
+use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,23 +20,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('company.welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('company.dashboard');
 })->middleware(['auth:companies'])->name('dashboard');
 
-
-
+Route::resource('information', CompanyController::class)
+->middleware('auth:companies')
+->except(['index', 'create', 'store', 'destroy']);
 
 Route::middleware('guest')->group(function () {
-	Route::get('register', [RegisteredUserController::class, 'create'])
-							->name('register');
-
-	Route::post('register', [RegisteredUserController::class, 'store']);
 
 	Route::get('login', [AuthenticatedSessionController::class, 'create'])
 							->name('login');

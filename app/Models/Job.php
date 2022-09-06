@@ -43,5 +43,12 @@ class Job extends Model
     public function city() {
         return $this->belongsTo(City::class);
     }
-    
+
+    public function employment_type() {
+        return $this->belongsTo(Employment_type::class);
+    }
+
+    public function entries() {
+        return $this->hasMany(Entry::class);
+    }
 }

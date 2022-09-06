@@ -20,4 +20,8 @@ class Prefecture extends Model
     public function companies() {
         return $this->hasMany(Company::class);
     }
+
+    public function jobs() {
+        return $this->hasMany(Company::class);
+    }
 }

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Employment_type;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,12 +24,13 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             AdminSeeder::class,
-            // CompanySeeder::class,
+            CompanySeeder::class,
             FeatureSeeder::class,
             IndustorySeeder::class,
             OccupationSeeder::class,
             PrefectureSeeder::class,
             CitySeeder::class,
+            EmploymentTypeSeeder::class,
         ]);
     }
 }

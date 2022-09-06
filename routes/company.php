@@ -8,6 +8,7 @@ use App\Http\Controllers\Company\Auth\NewPasswordController;
 use App\Http\Controllers\Company\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Company\Auth\VerifyEmailController;
 use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Company\JobsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,10 @@ Route::get('/dashboard', function () {
 Route::resource('information', CompanyController::class)
 ->middleware('auth:companies')
 ->except(['index', 'create', 'store', 'destroy']);
+
+Route::resource('jobs', JobsController::class)
+->middleware('auth:companies')
+->except(['show']);
 
 Route::middleware('guest')->group(function () {
 

@@ -59,4 +59,8 @@ class Company extends Authenticatable
     public function city() {
         return $this->belongsTo(City::class);
     }
+
+    public function jobs() {
+        return $this->hasMany(Job::class);
+    }
 }

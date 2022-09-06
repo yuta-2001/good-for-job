@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('company.information.show', ['information' => Auth::id()])" :active="request()->routeIs('company.information.show', ['information' => Auth::id()])">
                         企業情報
                     </x-nav-link>
+                    <x-nav-link :href="route('company.jobs.index')" :active="request()->routeIs('company.jobs.index')">
+                        求人管理
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('company.information.show', ['information' => Auth::id()])" :active="request()->routeIs('company.information.show', ['information' => Auth::id()])">
                 企業情報
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('company.jobs.index')" :active="request()->routeIs('company.jobs.index')">
+                求人管理
             </x-responsive-nav-link>
         </div>
 

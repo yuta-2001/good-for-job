@@ -4,18 +4,31 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Job;
 use App\Models\Entry;
+use App\Models\Prefecture;
+use App\Models\Occupation;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmMail;
-
+use App\Models\Employment_type;
+use Illuminate\Http\Request;
 
 class JobsController extends Controller
 {
     //
-    public function index() {
-        $jobs = Job::where('status', '1')->get();
-        return view('user.jobs.index', compact('jobs'));
+    public function index(Request $request) {
+        $jobs = Job::open()
+        ->selectOccupation($request->occupation ?? "0")
+        ->selectPrefecture($request->prefecture ?? "0")
+        ->selectEmploymentType($request->employment_type ?? "0")
+        ->searchKeyWord($request->keyword)
+        ->paginate($request->pagination);
+
+        $prefectures = Prefecture::all();
+        $occupations = Occupation::all();
+        $employment_types = Employment_type::all();
+
+        return view('user.jobs.index', compact('jobs', 'prefectures', 'occupations', 'employment_types'));
     }
 
     public function show($id) {

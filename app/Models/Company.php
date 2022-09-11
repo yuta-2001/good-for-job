@@ -63,4 +63,45 @@ class Company extends Authenticatable
     public function jobs() {
         return $this->hasMany(Job::class);
     }
+
+    //選択された業界に属する会社を返す
+    public function scopeSelectIndustory($query, $industoryId) {
+        if($industoryId !== '0') {
+            return $query->where('industory_id', $industoryId);
+        } else {
+            return;
+        }
+    }
+
+    //選択された都道府県にある会社を返す
+    public function scopeSelectPrefecture($query, $prefectureId) {
+        if($prefectureId !== '0') {
+            return $query->where('prefecture_id', $prefectureId);
+        } else {
+            return;
+        }
+    }
+
+    //キーワード検索
+    public function scopeSearchKeyWord($query, $keyword) {
+        if(!is_null($keyword)) {
+
+            //全角スペースを半角に変換
+            $spaceConvert = mb_convert_kana($keyword, 's');
+
+            //空白で区切る
+            $keywords = preg_split('/[\s,]+/', $spaceConvert, -1, PREG_SPLIT_NO_EMPTY);
+
+            //単語をループで回す
+            foreach($keywords as $keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('president', 'like', '%' . $keyword . '%');
+            }
+
+            return $query;
+
+        } else {
+            return;
+        }
+    }
 }

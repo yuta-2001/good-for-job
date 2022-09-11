@@ -44,6 +44,22 @@ class IndustorySeeder extends Seeder
                 'name' => '医療',
                 'created_at' => '2021/01/01 11:11:11',
             ],
+            [
+                'name' => '教育',
+                'created_at' => '2021/01/01 11:11:11',
+            ],
+            [
+                'name' => '土木',
+                'created_at' => '2021/01/01 11:11:11',
+            ],
+            [
+                'name' => '観光',
+                'created_at' => '2021/01/01 11:11:11',
+            ],
+            [
+                'name' => '保育',
+                'created_at' => '2021/01/01 11:11:11',
+            ],
         ]);
     }
 }

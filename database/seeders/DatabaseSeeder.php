@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Employment_type;
 use Illuminate\Database\Seeder;
+use App\Models\Company;
+use App\Models\Job;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,5 +36,7 @@ class DatabaseSeeder extends Seeder
             JobSeeder::class,
             UserSeeder::class,
         ]);
+        Company::factory(100)->create();
+        Job::factory(100)->create();
     }
 }

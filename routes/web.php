@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\User\CompanyController;
 use App\Http\Controllers\User\JobsController;
 
 /*
@@ -28,6 +29,10 @@ Route::middleware(['auth:users'])->group(function() {
         Route::get('/', [JobsController::class, 'index'])->name('index');
         Route::get('/{job}', [JobsController::class, 'show'])->name('show');
         Route::get('/{job}/apply', [JobsController::class, 'apply'])->name('apply');
+    });
+    Route::prefix('companies')->name('companies.')->group(function () {
+        Route::get('/', [CompanyController::class, 'index'])->name('index');
+        Route::get('/{company}', [CompanyController::class, 'show'])->name('show');
     });
 });
 

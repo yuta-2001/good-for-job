@@ -81,8 +81,8 @@
 									</div>
 								</div>
 								<div class="p-2 w-full">
-									<button type="button" onclick="location.href='{{ route('user.jobs.index') }}'" class="flex mx-auto text-white bg-gray-400 border-0 py-2 px-8 focus:outline-none hover:bg-gray-500 rounded text-lg mb-3">戻る</button>
-									<button type="button" onclick="location.href=''" class="flex mx-auto text-white bg-green-400 border-0 py-2 px-8 focus:outline-none hover:bg-green-500 rounded text-lg mb-3">企業詳細</button>
+									<button type="button" onclick="history.back();" class="flex mx-auto text-white bg-gray-400 border-0 py-2 px-8 focus:outline-none hover:bg-gray-500 rounded text-lg mb-3">戻る</button>
+									<button type="button" onclick="location.href='{{ route('user.companies.show', ['company' => $job->company->id]) }}'" class="flex mx-auto text-white bg-green-400 border-0 py-2 px-8 focus:outline-none hover:bg-green-500 rounded text-lg mb-3">企業詳細</button>
 									<form action="{{ route('user.jobs.apply', ['job' => $job->id]) }}">
 										@csrf
 										<button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">応募する</button>

@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
             PrefectureSeeder::class,
             CitySeeder::class,
             EmploymentTypeSeeder::class,
+            JobSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

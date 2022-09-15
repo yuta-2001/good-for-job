@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('user.companies.index')" :active="request()->routeIs('user.companies.index')">
                         企業一覧
                     </x-nav-link>
+                    <x-nav-link :href="route('user.chat.index')" :active="request()->routeIs('user.chat.index')">
+                        承認済み応募一覧
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -77,6 +80,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('user.companies.index')" :active="request()->routeIs('user.companies.index')">
                 企業一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('user.chat.index')" :active="request()->routeIs('user.chat.index')">
+                承認済み応募一覧
             </x-responsive-nav-link>
         </div>
 

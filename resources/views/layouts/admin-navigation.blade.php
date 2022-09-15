@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('admin.companies.index')" :active="request()->routeIs('admin.companies.index')">
                         企業一覧
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.jobs.index')" :active="request()->routeIs('admin.jobs.index')">
+                        求人一覧
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.features.index')" :active="request()->routeIs('admin.features.index')">
                         特徴一覧
                     </x-nav-link>
@@ -80,6 +83,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.companies.index')" :active="request()->routeIs('admin.companies.index')">
                 企業一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.jobs.index')" :active="request()->routeIs('admin.jobs.index')">
+                求人
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.features.index')" :active="request()->routeIs('admin.features.index')">
                 特徴一覧

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CompaniesController;
 use App\Http\Controllers\Admin\FeaturesController;
 use App\Http\Controllers\Admin\IndustoriesController;
 use App\Http\Controllers\Admin\OccupationsController;
+use App\Http\Controllers\Admin\JobsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,10 @@ use Illuminate\Support\Facades\Route;
 Route::resource('companies', CompaniesController::class)
 ->middleware('auth:admin')
 ->except(['edit', 'update']);
+
+Route::resource('jobs', JobsController::class)
+->middleware('auth:admin')
+->only(['index', 'show', 'destroy']);
 
 Route::resource('features', FeaturesController::class)
 ->middleware('auth:admin')

@@ -53,7 +53,7 @@
 																						@if ($entry->status === 2)
 																							<a href="{{ route('company.applications.approve', ['application' => $entry->id]) }}" class="text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded text-lg mr-2">承認</a>
 																						@else
-																							<a href="" class="text-white bg-green-500 border-0 py-2 px-3 focus:outline-none hover:bg-green-600 rounded text-lg mr-2">チャット</a>
+																							<a href="{{ route('company.chat.show', ['entry' => $entry->id]) }}" class="text-white bg-green-500 border-0 py-2 px-3 focus:outline-none hover:bg-green-600 rounded text-lg mr-2">チャット</a>
 																						@endif
 																						<form id="delete_{{ $entry->id }}" method="POST" action="{{ route('company.applications.destroy', ['application' => $entry->id]) }}">
 																							@csrf

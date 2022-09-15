@@ -10,6 +10,7 @@ use App\Http\Controllers\Company\Auth\VerifyEmailController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\JobsController;
 use App\Http\Controllers\Company\ApplicationManageController;
+use App\Http\Controllers\Company\ChatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,11 @@ Route::prefix('applications')->name('applications.')->middleware('auth:companies
 	Route::get('/index', [ApplicationManageController::class, 'index'])->name('index');
 	Route::get('/approve/{application}', [ApplicationManageController::class, 'approve'])->name('approve');
 	Route::delete('/destroy/{application}', [ApplicationManageController::class, 'destroy'])->name('destroy');
+});
+
+Route::prefix('chat')->name('chat.')->middleware('auth:companies')->group(function() {
+	Route::get('/{entry}', [ChatController::class, 'show'])->name('show');
+	Route::post('/send/{entry}', [ChatController::class, 'send'])->name('send');
 });
 
 Route::middleware('guest')->group(function () {

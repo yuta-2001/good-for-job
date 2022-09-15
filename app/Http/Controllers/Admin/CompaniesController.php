@@ -25,11 +25,17 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = Company::select('id', 'name', 'email', 'created_at')->paginate(10);
+        $companies = Company::selectIndustory($request->industory ?? '0')
+        ->selectPrefecture($request->prefecture ?? '0')
+        ->searchKeyWord($request->keyword)
+        ->paginate($request->pagination);
 
-        return view('admin.companies.index', compact('companies'));
+        $prefectures = Prefecture::all();
+        $industories = Industory::all();
+
+        return view('admin.companies.index', compact('companies','prefectures','industories'));
     }
 
     /**

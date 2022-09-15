@@ -85,7 +85,7 @@
 							</div>
 					</div>
 				</div>
-		</form>
+			</form>
 	</x-slot>
 	
 	<div class="py-12">

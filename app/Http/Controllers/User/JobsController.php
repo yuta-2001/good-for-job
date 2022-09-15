@@ -42,6 +42,7 @@ class JobsController extends Controller
 
         $entry->job_id = $id;
         $entry->user_id = Auth::id();
+        $entry->status = 2;
 
         $entry->save();
 

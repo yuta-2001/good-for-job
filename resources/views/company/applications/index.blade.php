@@ -2,10 +2,8 @@
 	<x-slot name="header">
 			<div class="flex items-center">
 					<h2 class="font-semibold text-xl text-gray-800 leading-tight">
-							求人管理
+							応募管理
 					</h2>
-					<button onclick="location.href='{{ route('company.jobs.create') }}'"
-							class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規求人作成</button>
 			</div>
 	</x-slot>
 
@@ -26,15 +24,15 @@
 																					</th>
 																					<th
 																							class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-																							募集職種
+																							応募職種
 																					</th>
 																					<th
 																							class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-																							公開
+																							応募者名
 																					</th>
 																					<th
 																							class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">
-																							応募数
+																							応募日時
 																					</th>
 																					<th
 																							class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200 rounded-tr rounded-br">
@@ -43,33 +41,31 @@
 																			</tr>
 																	</thead>
 																	<tbody>
-																			@foreach ($jobs as $job)
-																					<tr class="border-b even:bg-gray-50">
-																							<td class="px-3 py-3">{{ $job->name }}</td>
-																							<td class="px-3 py-3">{{ $job->occupation->name }}</td>
-																							<td class="px-3 py-3">
-																								@if ($job->status === 1)
-																									公開
-																								@else
-																									非公開
-																								@endif
-																							</td>
-																							<td class="px-3 py-3 text-lg text-gray-900">
-																								{{ $job->entries->count() }}
-																							</td>
-																							<td class="w-40 flex items-center p-4 pl-0">
-																									<a href="{{ route('company.jobs.edit', ['job' => $job->id]) }}" class="text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded text-lg mr-2">編集</a>
-																									<form id="delete_{{ $job->id }}" method="POST" action="{{ route('company.jobs.destroy', ['job' => $job->id]) }}">
-																											@csrf
-																											@method('delete')
-																											<a href="#" onclick="deletePost(this)" data-id="{{ $job->id }}" class="inline-block text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded text-lg">削除</a>
-																									</form>
-																							</td>
-																					</tr>
+																			@foreach ($entries as $entry)
+																				<tr class="border-b even:bg-gray-50">
+																					<td class="px-3 py-3">{{ $entry->job->name }}</td>
+																					<td class="px-3 py-3">{{ $entry->job->occupation->name }}</td>
+																					<td class="px-3 py-3">{{ $entry->user->name }}</td>
+																					<td class="px-3 py-3 text-lg text-gray-900">
+																						{{ $entry->created_at }}
+																					</td>
+																					<td class="w-60 flex items-center p-4 pl-0">
+																						@if ($entry->status === 2)
+																							<a href="{{ route('company.applications.approve', ['application' => $entry->id]) }}" class="text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded text-lg mr-2">承認</a>
+																						@else
+																							<a href="" class="text-white bg-green-500 border-0 py-2 px-3 focus:outline-none hover:bg-green-600 rounded text-lg mr-2">チャット</a>
+																						@endif
+																						<form id="delete_{{ $entry->id }}" method="POST" action="{{ route('company.applications.destroy', ['application' => $entry->id]) }}">
+																							@csrf
+																							@method('delete')
+																							<a href="#" onclick="deletePost(this)" data-id="{{ $entry->id }}" class="inline-block text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded text-lg">削除</a>
+																						</form>
+																					</td>
+																				</tr>
 																			@endforeach
 																	</tbody>
 															</table>
-															{{ $jobs->links() }}
+															{{-- {{ $entries->links() }} --}}
 													</div>
 											</div>
 									</section>

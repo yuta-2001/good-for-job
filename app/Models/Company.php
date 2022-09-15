@@ -64,6 +64,11 @@ class Company extends Authenticatable
         return $this->hasMany(Job::class);
     }
 
+    //jobsテーブルを通じてエントリーを取得
+    public function entries() {
+        return $this->hasManyThrough(Entry::class, Job::class);
+    }
+
     //選択された業界に属する会社を返す
     public function scopeSelectIndustory($query, $industoryId) {
         if($industoryId !== '0') {

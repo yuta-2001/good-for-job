@@ -9,6 +9,7 @@ use App\Http\Controllers\Company\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Company\Auth\VerifyEmailController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\JobsController;
+use App\Http\Controllers\Company\ApplicationManageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,12 @@ Route::resource('information', CompanyController::class)
 Route::resource('jobs', JobsController::class)
 ->middleware('auth:companies')
 ->except(['show']);
+
+Route::prefix('applications')->name('applications.')->middleware('auth:companies')->group(function() {
+	Route::get('/index', [ApplicationManageController::class, 'index'])->name('index');
+	Route::get('/approve/{application}', [ApplicationManageController::class, 'approve'])->name('approve');
+	Route::delete('/destroy/{application}', [ApplicationManageController::class, 'destroy'])->name('destroy');
+});
 
 Route::middleware('guest')->group(function () {
 

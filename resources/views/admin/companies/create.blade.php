@@ -44,9 +44,11 @@
 														<div class="relative">
 															<label for="industory" class="leading-7 text-sm text-gray-600 font-bold">業界選択</label>
 															<select id="industory" name="industory_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																	<option selected>業界を選択してください</option>
+																	<option>業界を選択してください</option>
 																	@foreach ($industories as $industory)
-																		<option value="{{ $industory->id }}">{{ $industory->name }}</option>
+																		<option @if (old('industory_id') == $industory->id)
+																			selected
+																		@endif value="{{ $industory->id }}">{{ $industory->name }}</option>
 																	@endforeach
 															</select>
 														</div>
@@ -55,9 +57,11 @@
 														<div class="relative">
 															<label for="prefecture" class="leading-7 text-sm text-gray-600 font-bold">都道府県選択</label>
 															<select id="prefecture" name="prefecture_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																	<option selected>都道府県を選択してください</option>
+																	<option>都道府県を選択してください</option>
 																	@foreach ($prefectures as $prefecture)
-																		<option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
+																		<option @if (old('prefecture_id') == $prefecture->id)
+																			selected
+																		@endif value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
 																	@endforeach
 															</select>
 														</div>
@@ -66,26 +70,26 @@
 														<div class="relative">
 															<label for="city" class="leading-7 text-sm text-gray-600 font-bold">市町村選択</label>
 															<select id="city" name="city_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																	<option selected>市町村を選択してください</option>
+																	<option>市町村を選択してください</option>
 															</select>
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="address" class="leading-7 text-sm text-gray-600 font-bold">番地以下</label>
-															<input type="text" id="address" name="address" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+															<input value="{{ old('address') }}" type="text" id="address" name="address" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="president" class="leading-7 text-sm text-gray-600 font-bold">代表者名</label>
-															<input type="text" id="president" name="president" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+															<input value="{{ old('president') }}" type="text" id="president" name="president" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="count_of_employee" class="leading-7 text-sm text-gray-600 font-bold">従業員数</label>
-															<input type="text" id="count_of_employee" name="count_of_employee" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+															<input value="{{ old('count_of_employee') }}" type="text" id="count_of_employee" name="count_of_employee" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">

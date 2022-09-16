@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage;
+use Validator; 
 
 class CompanyController extends Controller
 {
@@ -57,6 +58,34 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $rules = [
+            'name' => ['required','max:255'],
+            'email' => ['required','email','max:255','unique:companies'],
+            'password' => ['required','confirmed','min:8', Password::default()],
+            'industory_id' => ['required','integer'],
+            'prefecture_id' => ['required','integer'],
+            'city_id' => ['required','integer'],
+            'address' => ['required','string','max:255'],
+            'president' => ['required','string','max:255'],
+            'count_of_employee' => ['required','max:255'],
+            'img' => ['image', 'nullable'],
+        ];
+
+        $message = [
+            'industory_id.integer' => '業界を選択してください。',
+            'prefecture_id.integer' => '都道府県を選択してください。',
+            'city_id.integer' => '市区町村を選択してください。'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return redirect()->route('company.information.create')
+            ->withErrors($validator)
+            ->withInput();
+        } 
+
+
         $company = Company::findOrFail($id);
 
         $company->name = $request->name;

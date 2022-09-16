@@ -9,8 +9,9 @@ use App\Models\Prefecture;
 use App\Models\Industory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password;
 use InterventionImage;
+use Validator; 
 
 
 class CompaniesController extends Controller
@@ -60,19 +61,33 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:companies'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'industory_id' => ['required'],
-            'prefecture_id' => ['required'],
-            'city_id' => ['required'],
-            'address' => ['required'],
-            'president' => ['required'],
-            'count_of_employee' => ['required'],
-            'img' => ['required'],
-        ]);
+
+        $rules = [
+            'name' => ['required','max:255'],
+            'email' => ['required','email','max:255','unique:companies'],
+            'password' => ['required','confirmed','min:8', Password::default()],
+            'industory_id' => ['required','integer'],
+            'prefecture_id' => ['required','integer'],
+            'city_id' => ['required','integer'],
+            'address' => ['required','string','max:255'],
+            'president' => ['required','string','max:255'],
+            'count_of_employee' => ['required','max:255'],
+            'img' => ['required','image'],
+        ];
+
+        $message = [
+            'industory_id.integer' => '業界を選択してください。',
+            'prefecture_id.integer' => '都道府県を選択してください。',
+            'city_id.integer' => '市区町村を選択してください。'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.companies.create')
+            ->withErrors($validator)
+            ->withInput();
+        } 
 
         /**
          * 画像保存関連処理

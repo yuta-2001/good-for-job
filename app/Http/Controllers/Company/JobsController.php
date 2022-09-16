@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage;
+use Validator; 
 
 
 
@@ -58,6 +59,39 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'name' => ['required','max:255'],
+            'message' => ['required','max:255'],
+            'occupation_id' => ['required','integer'],
+            'employment_type_id' => ['required','integer'],
+            'img' => ['required', 'image'],
+            'prefecture_id' => ['required','integer'],
+            'city_id' => ['required','integer'],
+            'address' => ['required','max:255'],
+            'access' => ['required','max:255'],
+            'payment' => ['required','max:255'],
+            'content' => ['required'],
+            'status' => ['required'],
+            'feature_ids' => ['nullable', 'array'],
+            'feature_ids*' => ['integer'],
+        ];
+
+        $message = [
+            'occupation_id.integer' => '募集する職種を選択してください。',
+            'employment_type_id.integer' => '雇用形態を選択してください。',
+            'prefecture_id.integer' => '都道府県を選択してください。',
+            'city_id.integer' => '市区町村を選択してください。',
+            'status.required' => '公開ステータスを設定してください。'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return redirect()->route('company.jobs.create')
+            ->withErrors($validator)
+            ->withInput();
+        } 
+
         /**
          * 画像保存関連処理
          */
@@ -124,6 +158,39 @@ class JobsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'name' => ['required','max:255'],
+            'message' => ['required','max:255'],
+            'occupation_id' => ['required','integer'],
+            'employment_type_id' => ['required','integer'],
+            'img' => ['nullable', 'image'],
+            'prefecture_id' => ['required','integer'],
+            'city_id' => ['required','integer'],
+            'address' => ['required','max:255'],
+            'access' => ['required','max:255'],
+            'payment' => ['required','max:255'],
+            'content' => ['required'],
+            'status' => ['required'],
+            'feature_ids' => ['nullable', 'array'],
+            'feature_ids*' => ['integer'],
+        ];
+
+        $message = [
+            'occupation_id.integer' => '募集する職種を選択してください。',
+            'employment_type_id.integer' => '雇用形態を選択してください。',
+            'prefecture_id.integer' => '都道府県を選択してください。',
+            'city_id.integer' => '市区町村を選択してください。',
+            'status.required' => '公開ステータスを設定してください。'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return redirect()->route('company.jobs.edit')
+            ->withErrors($validator)
+            ->withInput();
+        } 
+
         //
         $job = Job::findOrFail($id);
 

@@ -32,9 +32,11 @@
 														<div class="relative">
 															<label for="occupation" class="leading-7 text-sm text-gray-600 font-bold">募集職種</label>
 															<select id="occupation" name="occupation_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																<option selected>職種を選択してください</option>
+																<option>職種を選択してください</option>
 																@foreach ($occupations as $occupation)
-																	<option value="{{ $occupation->id }}">{{ $occupation->name }}</option>
+																	<option @if ($occupation->id === old('occpation_id'))
+																		selected
+																	@endif value="{{ $occupation->id }}">{{ $occupation->name }}</option>
 																@endforeach
 															</select>
 														</div>
@@ -43,9 +45,11 @@
 														<div class="relative">
 															<label for="employment_type" class="leading-7 text-sm text-gray-600 font-bold">雇用形態</label>
 															<select id="employment_type" name="employment_type_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																<option selected>雇用形態を選択してください</option>
+																<option>雇用形態を選択してください</option>
 																@foreach ($employment_types as $type)
-																	<option value="{{ $type->id }}">{{ $type->name }}</option>
+																	<option @if ($type->id === old('employment_type_id'))
+																		selected
+																	@endif value="{{ $type->id }}">{{ $type->name }}</option>
 																@endforeach
 															</select>
 														</div>
@@ -58,14 +62,14 @@
 													</div>
 													<div class="p-2 w-1/2 mx-auto mb-4">
 														<div class="relative">
-															<div id="preview" class="h-auto"></div>  
+															<div id="preview" class="h-auto"></div> 
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="prefecture" class="leading-7 text-sm text-gray-600 font-bold">都道府県選択</label>
 															<select id="prefecture" name="prefecture_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																	<option selected>都道府県を選択してください</option>
+																	<option>都道府県を選択してください</option>
 																	@foreach ($prefectures as $prefecture)
 																		<option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
 																	@endforeach
@@ -76,32 +80,32 @@
 														<div class="relative">
 															<label for="city" class="leading-7 text-sm text-gray-600 font-bold">市町村選択</label>
 															<select id="city" name="city_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																	<option selected>市町村を選択してください</option>
+																	<option>市町村を選択してください</option>
 															</select>
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="address" class="leading-7 text-sm text-gray-600 font-bold">番地以下</label>
-															<input type="text" id="address" name="address" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+															<input type="text" value="{{ old('address') }}" id="address" name="address" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="access" class="leading-7 text-sm text-gray-600 font-bold">アクセス</label>
-															<textarea name="access" id="access" name="access" required class="h-40 resize-none w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
+															<textarea name="access" value="{{ old('access') }}" id="access" name="access" required class="h-40 resize-none w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="payment" class="leading-7 text-sm text-gray-600 font-bold">給与</label>
-															<textarea name="payment" id="payment" name="payment" required class="h-40 resize-none w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
+															<textarea name="payment" value="{{ old('payment') }}" id="payment" name="payment" required class="h-40 resize-none w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
 														<div class="relative">
 															<label for="content" class="leading-7 text-sm text-gray-600 font-bold">仕事内容</label>
-															<textarea name="content" id="content" name="content" required class="h-40 resize-none w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
+															<textarea name="content" value="{{ old('content') }}" id="content" name="content" required class="h-40 resize-none w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
 														</div>
 													</div>
 													<div class="p-2 w-1/2 mx-auto">
@@ -109,7 +113,9 @@
 															<label for="" class="leading-7 text-sm text-gray-600 font-bold">特徴(複数選択可能)</label>
 															@foreach ($features as $feature)
 															<div class="form-check form-check-inline">
-																<input class="form-check-input" name="feature_ids[]" type="checkbox" id="feature_{{ $feature->id }}" value="{{ $feature->id }}">
+																<input class="form-check-input" @if (is_array(old('feature_ids', $feature->id)) && in_array($feature->id, old('feature_ids')))
+																	checked
+																@endif name="feature_ids[]" type="checkbox" id="feature_{{ $feature->id }}" value="{{ $feature->id }}">
 																<label class="form-check-label" for="feature_{{ $feature->id }}">{{ $feature->name }}</label>
 															</div>
 															@endforeach
@@ -119,7 +125,7 @@
 														<div class="relative">
 															<label for="" class="leading-7 text-sm text-gray-600 font-bold">公開ステータス</label>
 															<div class="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700">
-																<input checked id="bordered-checkbox-1" type="checkbox" value="1" name="status" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" required>
+																<input checked id="bordered-checkbox-1" type="checkbox" value="1" name="status" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 																<label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">公開</label>
 															</div>
 															<div class="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700">

@@ -76,7 +76,7 @@
 														<div class="relative">
 															<label for="prefecture" class="leading-7 text-sm text-gray-600 font-bold">都道府県選択</label>
 															<select id="prefecture" name="prefecture_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																	<option selected>都道府県を選択してください</option>
+																	<option>都道府県を選択してください</option>
 																	@foreach ($prefectures as $prefecture)
 																		<option value="{{ $prefecture->id }}"
 																			@if($prefecture->id === $job->prefecture->id)
@@ -91,7 +91,7 @@
 														<div class="relative">
 															<label for="city" class="leading-7 text-sm text-gray-600 font-bold">市町村選択</label>
 															<select id="city" name="city_id" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-																	<option selected>市町村を選択してください</option>
+																	<option>市町村を選択してください</option>
 																	@foreach($job->prefecture->cities as $city)
 																		<option value="{{ $city->id }}"
 																			@if($city->id === $job->city->id)

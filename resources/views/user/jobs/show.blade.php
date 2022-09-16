@@ -79,6 +79,21 @@
 											<p class="text-md font-medium text-gray-900 title-font mb-2">{{ $job->content }}</p>
 										</div>
 									</div>
+									<div class="py-8 flex flex-wrap md:flex-nowrap">
+										<div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+											<span class="font-semibold title-font text-gray-700">特徴</span>
+										</div>
+										<div class="md:flex-grow">
+											<p class="text-md font-medium text-gray-900 title-font mb-2">
+												@foreach ($job->features as $feature)
+													{{ $feature->name }}<br>
+												@endforeach
+												@if (count($job->features) == 0)
+													設定されている特徴はありません。
+												@endif
+											</p>
+										</div>
+									</div>
 								</div>
 								<div class="p-2 w-full">
 									<button type="button" onclick="history.back();" class="flex mx-auto text-white bg-gray-400 border-0 py-2 px-8 focus:outline-none hover:bg-gray-500 rounded text-lg mb-3">戻る</button>

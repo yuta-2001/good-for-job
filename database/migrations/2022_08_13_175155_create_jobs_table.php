@@ -17,12 +17,21 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('message');
-            $table->integer('company_id');
-            $table->integer('occupation_id');
-            $table->integer('employment_type_id');
+            $table->foreignId('company_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('occupation_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('employment_type_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->string('img');
-            $table->integer('prefecture_id');
-            $table->integer('city_id');
+            $table->foreignId('prefecture_id')->constrained();
+            $table->foreignId('city_id')->constrained();
             $table->string('address');
             $table->string('access');
             $table->string('payment');

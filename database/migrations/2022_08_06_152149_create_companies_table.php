@@ -19,9 +19,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('industory_id');
-            $table->integer('prefecture_id');
-            $table->integer('city_id');
+            $table->foreignId('industory_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('prefecture_id')->constrained();
+            $table->foreignId('city_id')->constrained();
             $table->string('address');
             $table->string('president');
             $table->string('count_of_employee');

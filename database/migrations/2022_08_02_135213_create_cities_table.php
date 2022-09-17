@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('prefecture_id');
+            $table->foreignId('prefecture_id')->constrained();
             $table->string('city_code')->comment('市区町村コード');
             $table->string('name')->comment('市区町村名');
         });

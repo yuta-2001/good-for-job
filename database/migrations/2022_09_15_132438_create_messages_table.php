@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->text('content');
-            $table->integer('entry_id');
+            $table->foreignId('entry_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->integer('send_by');
             $table->timestamps();
         });

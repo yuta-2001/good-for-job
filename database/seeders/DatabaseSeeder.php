@@ -26,15 +26,15 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             AdminSeeder::class,
-            CompanySeeder::class,
+            UserSeeder::class,
+            PrefectureSeeder::class,
+            CitySeeder::class,
             FeatureSeeder::class,
             IndustorySeeder::class,
             OccupationSeeder::class,
-            PrefectureSeeder::class,
-            CitySeeder::class,
             EmploymentTypeSeeder::class,
+            CompanySeeder::class,
             JobSeeder::class,
-            UserSeeder::class,
         ]);
         Company::factory(100)->create();
         Job::factory(100)->create();

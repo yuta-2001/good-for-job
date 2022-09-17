@@ -15,8 +15,14 @@ return new class extends Migration
     {
         Schema::create('feature_job', function (Blueprint $table) {
             $table->id();
-            $table->integer('feature_id');
-            $table->integer('job_id');
+            $table->foreignId('feature_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('job_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

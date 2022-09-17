@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Employment_type;
 use Illuminate\Database\Seeder;
+use App\Models\Company;
+use App\Models\Job;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +24,19 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            AdminSeeder::class,
+            UserSeeder::class,
+            PrefectureSeeder::class,
+            CitySeeder::class,
+            FeatureSeeder::class,
+            IndustorySeeder::class,
+            OccupationSeeder::class,
+            EmploymentTypeSeeder::class,
+            CompanySeeder::class,
+            JobSeeder::class,
+        ]);
+        Company::factory(100)->create();
+        Job::factory(100)->create();
     }
 }

@@ -40,7 +40,7 @@ class ApplicationManageController extends Controller
     }
 
     public function approve($id) {
-        $entry = Entry::find($id);
+        $entry = Entry::findOrFail($id);
         $entry->status = 1;
         $entry->save();
 

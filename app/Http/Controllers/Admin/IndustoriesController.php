@@ -67,7 +67,7 @@ class IndustoriesController extends Controller
      */
     public function edit($id)
     {
-        $industory = Industory::find($id);
+        $industory = Industory::findorFail($id);
 
         return view('admin.industory.edit', compact('industory'));
     }

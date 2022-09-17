@@ -20,7 +20,6 @@ class FeaturesController extends Controller
      */
     public function index()
     {
-        //
         $features = Feature::select('id', 'name')->paginate(10);
 
         return view('admin.feature.index', compact('features'));

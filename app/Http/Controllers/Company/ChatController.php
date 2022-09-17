@@ -34,7 +34,7 @@ class ChatController extends Controller
 
     public function show($id) {
 
-        $entry = Entry::find($id);
+        $entry = Entry::findOrFail($id);
 
         return view('company.chat.show', compact('entry'));
     }

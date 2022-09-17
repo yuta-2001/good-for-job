@@ -25,9 +25,9 @@ class JobsController extends Controller
         ->searchKeyWord($request->keyword)
         ->paginate($request->pagination);
 
-        $prefectures = Prefecture::all();
-        $occupations = Occupation::all();
-        $employment_types = Employment_type::all();
+        $prefectures = Prefecture::select('id', 'name')->get();
+        $occupations = Occupation::select('id', 'name')->get();
+        $employment_types = Employment_type::select('id', 'name')->get();
 
         return view('admin.jobs.index', compact('jobs', 'prefectures', 'occupations', 'employment_types'));
     }

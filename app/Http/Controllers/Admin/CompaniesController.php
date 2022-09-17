@@ -8,10 +8,9 @@ use App\Models\Company;
 use App\Models\Prefecture;
 use App\Models\Industory;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
-use InterventionImage;
 use Validator; 
+use App\Services\ImageService;
 
 
 class CompaniesController extends Controller
@@ -33,8 +32,8 @@ class CompaniesController extends Controller
         ->searchKeyWord($request->keyword)
         ->paginate($request->pagination);
 
-        $prefectures = Prefecture::all();
-        $industories = Industory::all();
+        $prefectures = Prefecture::select('id', 'name')->get();
+        $industories = Industory::select('id', 'name')->get();
 
         return view('admin.companies.index', compact('companies','prefectures','industories'));
     }
@@ -47,8 +46,8 @@ class CompaniesController extends Controller
     public function create()
     {
         //
-        $prefectures = Prefecture::all();
-        $industories = Industory::all();
+        $prefectures = Prefecture::select('id', 'name')->get();
+        $industories = Industory::select('id', 'name')->get();
 
         return view('admin.companies.create', compact('prefectures', 'industories'));
     }
@@ -92,13 +91,7 @@ class CompaniesController extends Controller
         /**
          * 画像保存関連処理
          */
-        $imageFile = $request->img;
-        $resizedImage = InterventionImage::make($imageFile)->resize(1920,1080)->encode();
-        $fileName = uniqid(rand().'_');
-        $extension = $imageFile->extension();
-        $fileNameToStore = $fileName. '.' .$extension;
-
-        Storage::put('public/' . $fileNameToStore, $resizedImage);
+        $fileNameToStore = ImageService::upload($request->img);
         
         Company::create([
             'name' => $request->name,

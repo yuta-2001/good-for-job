@@ -20,6 +20,25 @@ use Validator;
 
 class JobsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:companies');
+
+        $this->middleware(function($request, $next) {
+
+            $parameter = $request->route()->parameter('job');
+
+            if(!is_null($parameter)) {
+                $job_owner = Job::findOrFail($parameter)->company->id; 
+                $id = Auth::id();
+                if($job_owner !== $id) {
+                    abort(404);
+                }
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *

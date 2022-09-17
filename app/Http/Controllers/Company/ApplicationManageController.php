@@ -10,6 +10,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplicationManageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:companies');
+
+        $this->middleware(function($request, $next) {
+
+            $parameter = $request->route()->parameter('application');
+            
+            if(!is_null($parameter)) {
+                $id = Auth::id();
+                $application_owner_company = Entry::findOrFail($parameter)->job->company->id;
+
+                if($application_owner_company !== $id) {
+                    abort(404);
+                }
+            }
+
+            return $next($request);
+        });
+    }
     //
     public function index() {
         //

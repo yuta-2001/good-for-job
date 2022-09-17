@@ -8,6 +8,7 @@ use App\Models\Industory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use InterventionImage;
 use Validator; 
 
@@ -16,7 +17,20 @@ class CompanyController extends Controller
 
     public function __construct()
     {
-        
+        $this->middleware('auth:companies');
+
+        $this->middleware(function($request, $next) {
+
+            $parameter = (int)$request->route()->parameter('information');
+            $id = Auth::id();
+
+            if(!is_null($parameter)) {
+                if($parameter !== $id) {
+                    abort(404);
+                }
+            }
+            return $next($request);
+        });
     }
     /**
      * Display the specified resource.
@@ -60,8 +74,6 @@ class CompanyController extends Controller
         //
         $rules = [
             'name' => ['required','max:255'],
-            'email' => ['required','email','max:255','unique:companies'],
-            'password' => ['required','confirmed','min:8', Password::default()],
             'industory_id' => ['required','integer'],
             'prefecture_id' => ['required','integer'],
             'city_id' => ['required','integer'],
@@ -80,7 +92,7 @@ class CompanyController extends Controller
         $validator = Validator::make($request->all(), $rules, $message);
 
         if ($validator->fails()) {
-            return redirect()->route('company.information.create')
+            return redirect()->route('company.information.edit', ['information' => $id])
             ->withErrors($validator)
             ->withInput();
         } 
@@ -89,7 +101,6 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
 
         $company->name = $request->name;
-        $company->email = $request->email;
         $company->industory_id = $request->industory_id;
         $company->prefecture_id = $request->prefecture_id;
         $company->city_id = $request->city_id;

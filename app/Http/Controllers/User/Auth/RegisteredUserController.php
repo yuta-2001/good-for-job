@@ -37,12 +37,25 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'img' => ['required', 'image']
         ]);
+
+        /**
+         * 画像保存関連処理
+         */
+        $imageFile = $request->img;
+        $resizedImage = InterventionImage::make($imageFile)->resize(1920,1080)->encode();
+        $fileName = uniqid(rand().'_');
+        $extension = $imageFile->extension();
+        $fileNameToStore = $fileName. '.' .$extension;
+
+        Storage::put('public/' . $fileNameToStore, $resizedImage);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'img' => $fileNameToStore,
         ]);
 
         event(new Registered($user));

@@ -18,7 +18,7 @@
 															<div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
 																<div class="relative flex items-center space-x-4">
 																		<div class="relative">
-																			<img src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+																			<img src="{{ Storage::url($entry->user->img) }}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
 																		</div>
 																		<div class="flex flex-col leading-tight">
 																			<div class="text-2xl mt-1 flex items-center">
@@ -35,7 +35,7 @@
 																				<div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
 																						<div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">{{ $message->content }}</span></div>
 																				</div>
-																				<img src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="My profile" class="w-14 h-14 rounded-full order-1">
+																				<img src="{{ Storage::url($entry->user->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-1">
 																			</div>
 																		</div>
 																	@endif

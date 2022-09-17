@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'name' => 'test',
             'email' => 'test@test.com',
             'password' => Hash::make('password123'),
+            'img' => '1076268041_6312e8ae98eb4.png',
             'created_at' => '2021/01/01 11:11:11',
         ]);
     }

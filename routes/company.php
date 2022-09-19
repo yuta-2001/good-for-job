@@ -41,11 +41,6 @@ Route::prefix('applications')->name('applications.')->middleware('auth:companies
 	Route::delete('/destroy/{application}', [ApplicationManageController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('chat')->name('chat.')->middleware('auth:companies')->group(function() {
-	Route::get('/{entry}', [ChatController::class, 'show'])->name('show');
-	Route::post('/send/{entry}', [ChatController::class, 'send'])->name('send');
-});
-
 Route::middleware('guest')->group(function () {
 
 	Route::get('login', [AuthenticatedSessionController::class, 'create'])

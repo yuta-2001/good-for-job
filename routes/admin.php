@@ -27,29 +27,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::resource('companies', CompaniesController::class)
-->middleware('auth:admin')
-->except(['edit', 'update']);
+Route::middleware('auth:admin')->group(function () {
 
-Route::resource('jobs', JobsController::class)
-->middleware('auth:admin')
-->only(['index', 'show', 'destroy']);
+	Route::get('/dashboard', function () {
+    return view('admin.dashboard');	
+	})->name('dashboard');
 
-Route::resource('features', FeaturesController::class)
-->middleware('auth:admin')
-->except(['show']);
+	Route::resource('companies', CompaniesController::class)
+	->except(['edit', 'update']);
 
-Route::resource('industories', IndustoriesController::class)
-->middleware('auth:admin')
-->except(['show']);
+	Route::resource('jobs', JobsController::class)
+	->only(['index', 'show', 'destroy']);
 
-Route::resource('occupations', OccupationsController::class)
-->middleware('auth:admin')
-->except(['show']);
+	Route::resource('features', FeaturesController::class)
+	->except(['show']);
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth:admin'])->name('dashboard');
+	Route::resource('industories', IndustoriesController::class)
+	->except(['show']);
+
+	Route::resource('occupations', OccupationsController::class)
+	->except(['show']);
+
+});
 
 
 Route::middleware('guest')->group(function () {

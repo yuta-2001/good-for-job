@@ -17,8 +17,8 @@ class CompanyController extends Controller
         ->searchKeyWord($request->keyword)
         ->paginate($request->pagination);
         
-        $prefectures = Prefecture::all();
-        $industories = Industory::all();
+        $prefectures = Prefecture::select('id', 'name')->get();
+        $industories = Industory::select('id', 'name')->get();
 
         return view('user.company.index', compact('companies', 'prefectures', 'industories'));
     }

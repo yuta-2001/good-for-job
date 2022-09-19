@@ -12,9 +12,8 @@ use App\Models\Job;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use InterventionImage;
 use Validator; 
+use App\Services\ImageService;
 
 
 
@@ -47,7 +46,7 @@ class JobsController extends Controller
     public function index()
     {
         //
-        $company = Company::find(Auth::id());
+        $company = Company::findOrFail(Auth::id());
         $jobs = $company->jobs()->paginate(10);
 
         return view('company.jobs.index', compact('jobs'));
@@ -61,11 +60,11 @@ class JobsController extends Controller
     public function create()
     {
         //
-        $occupations = Occupation::all();
-        $employment_types = Employment_type::all();
-        $prefectures = Prefecture::all();
-        $cities = City::all();
-        $features = Feature::all();
+        $occupations = Occupation::select('id', 'name')->get();
+        $employment_types = Employment_type::select('id', 'name')->get();
+        $prefectures = Prefecture::select('id', 'name')->get();
+        $cities = City::select('id', 'name')->get();
+        $features = Feature::select('id', 'name')->get();
 
         return view('company.jobs.create', compact('occupations', 'employment_types', 'prefectures', 'cities', 'features'));
     }
@@ -114,13 +113,7 @@ class JobsController extends Controller
         /**
          * 画像保存関連処理
          */
-        $imageFile = $request->img;
-        $resizedImage = InterventionImage::make($imageFile)->resize(1920,1080)->encode();
-        $fileName = uniqid(rand().'_');
-        $extension = $imageFile->extension();
-        $fileNameToStore = $fileName. '.' .$extension;
-
-        Storage::put('public/' . $fileNameToStore, $resizedImage);
+        $fileNameToStore = ImageService::upload($request->img);
 
         $job = new Job;
 
@@ -159,11 +152,11 @@ class JobsController extends Controller
     {
         //
         $job = Job::findOrFail($id);
-        $occupations = Occupation::all();
-        $employment_types = Employment_type::all();
-        $prefectures = Prefecture::all();
-        $cities = City::all();
-        $features = Feature::all();
+        $occupations = Occupation::select('id', 'name')->get();
+        $employment_types = Employment_type::select('id', 'name')->get();
+        $prefectures = Prefecture::select('id', 'name')->get();
+        $cities = City::select('id', 'name')->get();
+        $features = Feature::select('id', 'name')->get();
 
         return view('company.jobs.edit', compact('job', 'occupations', 'employment_types', 'prefectures', 'cities', 'features'));
     }
@@ -229,13 +222,7 @@ class JobsController extends Controller
             /**
              * 画像保存関連処理
              */
-            $imageFile = $request->img;
-            $resizedImage = InterventionImage::make($imageFile)->resize(1920,1080)->encode();
-            $fileName = uniqid(rand().'_');
-            $extension = $imageFile->extension();
-            $fileNameToStore = $fileName. '.' .$extension;
-
-            Storage::put('public/' . $fileNameToStore, $resizedImage);
+            $fileNameToStore = ImageService::upload($request->img);
 
             $job->img = $fileNameToStore;
         }

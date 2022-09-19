@@ -7,10 +7,9 @@ use App\Models\Prefecture;
 use App\Models\Industory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use InterventionImage;
 use Validator; 
+use App\Services\ImageService;
 
 class CompanyController extends Controller
 {
@@ -56,8 +55,8 @@ class CompanyController extends Controller
     {
         //
         $company = Company::findOrFail($id);
-        $prefectures = Prefecture::all();
-        $industories = Industory::all();
+        $prefectures = Prefecture::select('id', 'name')->get();
+        $industories = Industory::select('id', 'name')->get();
 
         return view('company.information.edit', compact('company', 'prefectures', 'industories'));
     }
@@ -111,15 +110,7 @@ class CompanyController extends Controller
             /**
              * 画像保存関連処理
              */
-            $imageFile = $request->img;
-            $resizedImage = InterventionImage::make($imageFile)->resize(1920,1080)->encode();
-            $fileName = uniqid(rand().'_');
-            $extension = $imageFile->extension();
-            $fileNameToStore = $fileName. '.' .$extension;
-
-            Storage::put('public/' . $fileNameToStore, $resizedImage);
-
-
+            $fileNameToStore = ImageService::upload($request->img);
             $company->img = $fileNameToStore;
         }
 

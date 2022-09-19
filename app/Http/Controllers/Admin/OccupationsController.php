@@ -86,7 +86,7 @@ class OccupationsController extends Controller
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $occupation = Occupation::find($id);
+        $occupation = Occupation::findofFail($id);
         
         $occupation->name = $request->name;
         $occupation->save();

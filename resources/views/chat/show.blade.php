@@ -45,7 +45,7 @@
 																				<div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
 																						<div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">{{ $message->content }}</span></div>
 																				</div>
-																				<img src="{{ Storage::url($entry->job->company->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-1">
+																				<img src="{{ Storage::url($entry->user->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-1">
 																			</div>
 																		</div>
 																	@endif
@@ -55,23 +55,13 @@
 																				<div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
 																						<div><span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">{{ $message->content }}</span></div>
 																				</div>
-																				<img src="{{ Storage::url($entry->user->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-2">
+																				<img src="{{ Storage::url($entry->job->company->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-2">
 																			</div>
 																		</div>
 																	@endif
 
 																@else
 
-																	@if ($message->send_by == 2)
-																		<div class="chat-message">
-																			<div class="flex items-end">
-																				<div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-																						<div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">{{ $message->content }}</span></div>
-																				</div>
-																				<img src="{{ Storage::url($entry->job->company->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-1">
-																			</div>
-																		</div>
-																	@endif
 																	@if ($message->send_by == 1)
 																		<div class="chat-message">
 																			<div class="flex items-end justify-end">
@@ -82,6 +72,17 @@
 																			</div>
 																		</div>
 																	@endif
+																	@if ($message->send_by == 2)
+																		<div class="chat-message">
+																			<div class="flex items-end">
+																				<div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+																						<div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">{{ $message->content }}</span></div>
+																				</div>
+																				<img src="{{ Storage::url($entry->job->company->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-1">
+																			</div>
+																		</div>
+																	@endif
+
 																@endif
 
 																@endforeach
@@ -168,12 +169,12 @@
 				window.Echo.channel("ChatRoomChannel").listen("ChatPusher", e => {
 					if(e.message.send_by === 1) {
 						$('#messages').append(
-							'<div class="chat-message"><div class="flex items-end justify-end"><div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end"><div><span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">' + e.message.content + '</span></div></div><img src="{{ Storage::url($entry->user->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-2"></div></div>'
+							'<div class="chat-message"><div class="flex items-end @if(auth("users")->user()) justify-end @endif"><div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 @if(auth("users")->user()) order-1 @else order-2 @endif @if(auth("users")->user()) items-end @else items-start @endif "><div><span class="px-4 py-2 rounded-lg inline-block  @if(auth("users")->user()) bg-blue-600 text-white rounded-br-none @else bg-gray-300 text-gray-600 rounded-bl-none @endif">' + e.message.content + '</span></div></div><img src="{{ Storage::url($entry->user->img) }}" alt="My profile" class="w-14 h-14 rounded-full @if(auth("users")->user()) order-2 @else order-1 @endif"></div></div>'
 						);
 					}
 					if(e.message.send_by === 2) {
 						$('#messages').append(
-							'<div class="chat-message"><div class="flex items-end"><div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start"><div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">' + e.message.content + '</span></div></div><img src="{{ Storage::url($entry->job->company->img) }}" alt="My profile" class="w-14 h-14 rounded-full order-1"></div></div>'
+							'<div class="chat-message"><div class="flex items-end @if(auth("companies")->user()) justify-end @endif"><div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 @if(auth("companies")->user()) order-1 @else order-2 @endif @if(auth("companies")->user()) items-end @else items-start @endif "><div><span class="px-4 py-2 rounded-lg inline-block  @if(auth("companies")->user()) bg-blue-600 text-white rounded-br-none @else bg-gray-300 text-gray-600 rounded-bl-none @endif">' + e.message.content + '</span></div></div><img src="{{ Storage::url($entry->job->company->img) }}" alt="My profile" class="w-14 h-14 rounded-full @if(auth("companies")->user()) order-2 @else order-1 @endif"></div></div>'
 						);
 					}
 				});

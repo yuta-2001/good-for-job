@@ -10,7 +10,7 @@ use App\Http\Controllers\Company\Auth\VerifyEmailController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\JobsController;
 use App\Http\Controllers\Company\ApplicationManageController;
-use App\Http\Controllers\Company\ChatController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,22 +23,30 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/dashboard', function () {
+
+
+Route::middleware('auth:companies')->group(function () {
+
+	Route::get('/dashboard', function () {
     return view('company.dashboard');
-})->middleware(['auth:companies'])->name('dashboard');
+	})->name('dashboard');
 
-Route::resource('information', CompanyController::class)
-->middleware('auth:companies')
-->except(['index', 'create', 'store', 'destroy']);
+	Route::resource('information', CompanyController::class)
+	->except(['index', 'create', 'store', 'destroy']);
 
-Route::resource('jobs', JobsController::class)
-->middleware('auth:companies')
-->except(['show']);
+	Route::resource('jobs', JobsController::class)
+	->except(['show']);
 
-Route::prefix('applications')->name('applications.')->middleware('auth:companies')->group(function() {
-	Route::get('/index', [ApplicationManageController::class, 'index'])->name('index');
-	Route::get('/approve/{application}', [ApplicationManageController::class, 'approve'])->name('approve');
-	Route::delete('/destroy/{application}', [ApplicationManageController::class, 'destroy'])->name('destroy');
+	Route::prefix('applications')->name('applications.')->group(function() {
+		Route::get('/index', [ApplicationManageController::class, 'index'])->name('index');
+		Route::get('/approve/{application}', [ApplicationManageController::class, 'approve'])->name('approve');
+		Route::delete('/destroy/{application}', [ApplicationManageController::class, 'destroy'])->name('destroy');
+	});
+
+	Route::prefix('chat')->name('chat.')->group(function() {
+		Route::get('/show/{entry}', [ChatController::class, 'show'])->name('show');
+	});
+
 });
 
 Route::middleware('guest')->group(function () {

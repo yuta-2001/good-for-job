@@ -6,16 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Entry;
 use App\Models\Message;
 use App\Events\ChatPusher;
-use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
+    public function __construct() {
+
+    }
     //
     public function show ($id) {
         $entry = Entry::findOrFail($id);
-        $user = Auth::user();
 
-        return view("chat.show", compact('entry', 'user'));
+        return view("chat.show", compact('entry'));
     }
 
     public function send(Request $request) {

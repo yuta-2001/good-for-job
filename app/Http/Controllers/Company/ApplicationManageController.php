@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Entry;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicationManageController extends Controller

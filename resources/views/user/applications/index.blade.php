@@ -50,7 +50,7 @@
 																						{{ $room->created_at }}
 																					</td>
 																					<td class="w-60 flex items-center p-4 pl-0">			
-																						<a href="{{ route('chat.show', ['entry' => $room->id]) }}" class="text-white bg-green-500 border-0 py-2 px-3 focus:outline-none hover:bg-green-600 rounded text-lg mr-2">チャットルーム</a>
+																						<a href="{{ route('user.chat.show', ['entry' => $room->id]) }}" class="text-white bg-green-500 border-0 py-2 px-3 focus:outline-none hover:bg-green-600 rounded text-lg mr-2">チャットルーム</a>
 																					</td>
 																				</tr>
 																			@endforeach

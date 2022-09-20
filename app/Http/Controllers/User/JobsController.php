@@ -6,12 +6,13 @@ use App\Models\Job;
 use App\Models\Entry;
 use App\Models\Prefecture;
 use App\Models\Occupation;
+use App\Jobs\sendConfirmMail;
+use App\Jobs\sendNotifyMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ConfirmMail;
 use App\Models\Employment_type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
@@ -46,10 +47,11 @@ class JobsController extends Controller
 
         $entry->save();
 
-        $name = Auth::user()->name;
-        $email = Auth::user()->email;
+        $entry = $entry;
 
-        Mail::send(new ConfirmMail($name, $email));
+        //非同期に送信
+        SendConfirmMail::dispatch($entry);
+        SendNotifyMail::dispatch($entry);
 
         return redirect()->route('user.jobs.index')
         ->with([

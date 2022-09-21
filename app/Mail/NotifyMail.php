@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmMail extends Mailable
+class NotifyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class ConfirmMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('応募が完了しました。')
-            ->view('emails.confirm');
+        return $this->subject('応募を受け付けました。')
+            ->view('emails.notify');
     }
 }

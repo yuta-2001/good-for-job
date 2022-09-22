@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth:users');
+    }
+    
     public function index(Request $request) {
         $companies = Company::selectIndustory($request->industory ?? '0')
         ->selectPrefecture($request->prefecture ?? '0')

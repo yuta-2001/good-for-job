@@ -24,12 +24,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        if(request()->is('company*')) {
-            config(['session.cookie' => config('session.cookie_company')]);
-        }
+        // if(request()->is('company*')) {
+        //     config(['session.cookie' => config('session.cookie_company')]);
+        // }
 
-        if(request()->is('admin*')) {
-            config(['session.cookie' => config('session.cookie_admin')]);
-        }
+        // if(request()->is('admin*')) {
+        //     config(['session.cookie' => config('session.cookie_admin')]);
+        // }
     }
 }

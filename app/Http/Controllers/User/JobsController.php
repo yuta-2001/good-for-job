@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:users');
+    }
     //
     public function index(Request $request) {
         $jobs = Job::open()
